@@ -92,7 +92,7 @@ dependência de produção do prisma:
 ```bash
 npm i @prisma/client
 ```
-Prisma ERD Generator juntamente com a bliblioteca mermaid para heração de diagramas :
+Prisma ERD Generator juntamente com a bliblioteca mermaid para geração de diagramas :
 ```bash
 npm i prisma-erd-generator @mermaid-js/mermaid-cli -D
 ```
