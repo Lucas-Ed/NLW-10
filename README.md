@@ -1,4 +1,4 @@
-<h1 align="center"> NLW-10 </h1>
+<h1 align="center"> NLW-10 | Trilha Ignite </h1>
 <p align="center">
 
   ![](/img/logo.png)
@@ -55,7 +55,7 @@ Você pode visualizar o layout do projeto através [DESSE LINK](https://www.figm
 
 ## Deploy do projeto
 
-Confira [aqui.]()
+Confira [aqui em breve.]()
 
 ## Como executar
 
@@ -63,7 +63,7 @@ Para executar as aplicações seguir os procedimentos abaixo:
 - SERVER;
 - WEB;
 - MOBILE.
-
+---
 ### Procedimento Iniciar backend 
 
 - Acessar primeiro o diretório server com o comando
@@ -74,13 +74,41 @@ cd server
 ```bash
 npm install
 ```
+- Instalar blibliotecas
+
+Fastify
+```bash
+  npm i fastfy -D
+```
+TSX
+```bash
+npm i tsx -D
+```
+prisma:
+```bash
+npm i prisma -D
+```
+dependência de produção do prisma:
+```bash
+npm i @prisma/client
+```
+Prisma ERD Generator juntamente com a bliblioteca mermaid para heração de diagramas :
+```bash
+npm i prisma-erd-generator @mermaid-js/mermaid-cli -D
+```
+Cors do Fastify
+```bash
+npm i @fastfy/cors
+```
+---
+
 - Iniciar o backend com o comando
 ```bash
 npm run dev
 ```
 
 Com o backend rodando você pode escolher entre a aplicação WEB ou MOBILE
-
+---
 ### Procedimento iniciar aplicação WEB 
 
 - Acessar primeiro o diretório web com o comando
@@ -119,10 +147,19 @@ Fonts do google
 ```bash
 npx expo install expo-font @expo-google-fonts/roboto
 ```
+phosphor-react-native
+```bash
+npm install --save phosphor-react-native
+```
+xvg-transformer
+```bash
+npm i react-native-svg-transformer
+```
 - Para Rodar a aplicação mobile localmente:
   É necessário um aparelho celular físico e o baixar o aplicativo ExpoGo na playstore, e conectar na conta do aplicativo ExpoGo;
-  depois conectar o cabo USB no celular e computador, ou notbook[Tutorial rodar ExpoGo via USB, aqui.](http://bit.ly/3SYlJXv)
-  Executar o projeto via usb com o app expoGo rodando o seguinte comando no terminal:
+  depois conectar o cabo USB no celular e computador, ou notbook [acesse o tutorial rodar ExpoGo via USB, aqui.](http://bit.ly/3SYlJXv)
+
+Executar o projeto via usb com o app expoGo rodando o seguinte comando no terminal:
 ```bash
 npm run android
 ```

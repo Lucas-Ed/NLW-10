@@ -1,9 +1,10 @@
-import { StatusBar } from 'expo-status-bar';
-import { NativeBaseProvider, Text, Center } from "native-base";
+import { NativeBaseProvider, StatusBar } from "native-base";
 import{  useFonts, Roboto_400Regular, Roboto_500Medium, Roboto_700Bold} from '@expo-google-fonts/roboto';
-import { SignIn } from './src/screens/SignIn';
+import { SigIn } from './src/screens/SignIn'; 
 import { Loading } from './src/components/Loading';
 import { THEME } from './src/styles/theme';
+import React from "react";
+import { AuthContextProvider } from "./src/contexts/AuthContext";
 
 
 export default function App() {
@@ -14,17 +15,18 @@ export default function App() {
   return (
    
     <NativeBaseProvider theme={THEME}>
-      <Center flex={1} bgColor="gray.900">
-      {
-      fontsloaded ? <SignIn /> : <Loading />
-      }
-       <Text color="white" fontSize={24} fontFamily="heading"> 
-       Hello React Native !
-      </Text>
-      <StatusBar style="auto"/>
-</Center>
 
+      {/* Com a tag abaixo e no fechamento podemos compartilhar o contexto onde queremos */}
+     <AuthContextProvider>
+      <StatusBar 
+      barStyle="light-content"
+      backgroundColor="transparency"
+      translucent
+/>
 
+                 {/* SigIn */}
+     {fontsloaded ? <SigIn />: <Loading />}
+     </AuthContextProvider>
     </NativeBaseProvider>
 
   );
