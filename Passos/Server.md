@@ -1,3 +1,6 @@
+<p align="center">
+  <img src="../copa/aulas/mobile/src/assets/logo.svg" alt="Next Level Week Copa Logo"/>
+</p>
 # Passo a Passo 
 ### Todos os comandos e instalações necessários para o projeto do server .
 
@@ -187,7 +190,7 @@ após gerado o .SVG abrir o arquivo no navegador para a vizualização.
 - React, Nextjs, e número de bolões.
 - Instalar a bliblioteca: 
 ```bash
-npm i @fastify/cors
+npm install @fastify/cors
 ```
 a bliblioteca cors é utilizada para definição de quais aplicações esarão aptas a consumir os dados do backend,
 é uma medida de segurança para a aplicação.
@@ -195,7 +198,7 @@ a bliblioteca cors é utilizada para definição de quais aplicações esarão a
 - Configurando o cors, 1° fazer o import e depois incluindo na função do arquivo server.ts:
 
 ```bash
-import cors from '@fastfy/cors'
+import cors from '@fastify/cors'
 
 // usar dentro da função true no ambiente de produção e quando for fazer o deploy
 // incluir o dominio em origin: 'https://meusite.com.br'
