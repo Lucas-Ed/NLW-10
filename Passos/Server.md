@@ -14,14 +14,14 @@ npm i typescript -D
 ```
 criar o config.json:
 ```bash
-npm tsc --init
+npx tsc --init
 ```
-em config.json modificar o "targey" para es2020
+em config.json modificar o "target" para es2020
 
 #### Fastfy
 - Instalação:
 ```bash
-npm i fastfy -D
+npm i fastify 
 ```
 - Criar uma pasta de nome SRC.
 dentro de SRC criar um arquivo de nome server.ts
@@ -32,8 +32,10 @@ import Fastify from "fastify";
 ```
 - Criar uma função:
 ```bash
-async function bootstrap(){}
-bootstrap()
+ fastify.get('/pools/count', () => {
+
+        return {count: 0}
+    });
 ```
 - Criar servidor:
   
@@ -151,7 +153,7 @@ npx prisma studio
 import {PrismaClient} from '@prisma/client'
 
 const prisma = new PrismaClient({
-    log:['query']
+    log:['query'],
 })
 ```
 - Contagem de bolões
@@ -185,12 +187,12 @@ após gerado o .SVG abrir o arquivo no navegador para a vizualização.
 - React, Nextjs, e número de bolões.
 - Instalar a bliblioteca: 
 ```bash
-npm i @fastfy/cors
+npm i @fastify/cors
 ```
 a bliblioteca cors é utilizada para definição de quais aplicações esarão aptas a consumir os dados do backend,
 é uma medida de segurança para a aplicação.
 
-- Configurando o cors, 1° fazer o import e depois incluindo na função do arquivo schema.prisma:
+- Configurando o cors, 1° fazer o import e depois incluindo na função do arquivo server.ts:
 
 ```bash
 import cors from '@fastfy/cors'
@@ -230,28 +232,263 @@ rodar a aplicação:
 ```bash
 npm run dev
 ```
-#### Requisição http usando método fetch()
-
-dentro do arquivo _app.ts, e dentro da função home:
-```bash
-fetch('https: //localhost:3333/pools/count').then(response => response.json()
-.then(data => {
-    console.log(data)
-})
-)
-```
-executar requisição http mesmo com js desabilitado no browser:
-
-```bash
-export const getServerSideProps = async () => {
-fetch('https: //localhost:3333/pools/count').then(response => response.json()
-const data = await response.json()
-    console.log(data)
-
-    return {
-          props: {}
-    }
-)
-}
-```
 ---
+
+# Aula-02.
+
+#### Continuando o backend.
+- Estruturas do banco e relacionamento.
+Criar novas models.
+As estruturas de relacionamento é feita incluino o nome do que vai ser relacionado:
+```bash
+game Game
+```
+após relacionar com outra model e salvar cria-se o relacionamento automático.
+```bash
+  game        Game        @relation(fields: [gameId], references: [id])
+```
+Após criado as novas models e relacionamento entre elas rodar o comando:
+```bash
+npx prisma migrate dev
+```
+Colocar o nome: create db structure
+
+Abrir p prisma studio:
+```bash
+npx prisma studio
+```
+- Criando seed do banco de dados.
+Criando o SEED(Pré popula o banco de dados, com dados fictícios)
+dentro da pasta prisma crie o aruivo de nom seed .ts e criar usuário fictício de acordo com o video....
+exemplo:
+```bash
+import { PrismaClient} from '@prisma/client'
+
+const prisma = new PrismaClient()
+
+async function main() {
+    const user = await prisma.user.create({
+        data:{
+            name:'John Doe',
+            email:'john.doe@gmail.com',
+            avatarUrl: 'https://github.com/Lucas-Ed.png'
+        }
+    })
+
+    const pool = await prisma.pool.create({
+        data:{
+            title:'Example Pool',
+            code:'BOL123',
+            ownerId:user.id,
+            Participants:{
+                create:{userId:user.id}
+            }
+        }
+    })
+
+    await prisma.game.create({
+        data:{
+            date:'2022-11-02T12:00:00.201Z',
+            firstTeamCountryCode:'DE',
+            secondTeamCountryCode:'BR',
+        }
+    })
+
+    await prisma.game.create({
+        data:{
+            date:'2022-11-03T12:00:00.201Z',
+            firstTeamCountryCode:'BR',
+            secondTeamCountryCode:'AR',
+
+            guesses:{
+                create:{
+                    firstTeamPoints:2,
+                    secondTeamPoints:1,
+                    participant:{
+                        connect:{
+                            userId_poolId:{
+                                userId:user.id,
+                                poolId:pool.id
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    })
+}
+
+main()
+
+```
+
+
+No console do navegador para descubrir o time stamp:
+```bash
+new Date().toISOString()
+```
+copiar mudando dia e hora.
+
+
+Em package.json criar o campo a seed:
+```bash
+ "prisma": {
+    "seed": "tsx prisma/seed.ts"
+  },
+```
+colocar no banco os usuários da seed criada:
+```bash
+npx prisma db seed
+```
+
+Abrir p prisma studio:
+```bash
+npx prisma studio
+```
+- Criação de um novo bolão.
+
+Criar as outras rotas no arquivo server.ts.
+testar as rotas criadas com o insominia ou postman.
+
+instalar blibliotecas:
+ZOD(VALIDAÇÃO)
+```bash
+npm i zod
+```
+short-unique-id( cri um código automático para cada bolõ criado!)
+```bash
+npm i short-unique-id
+```
+```bash
+
+ const generate= new ShortUniqueId({length:6})
+const code=String(generate()).toLocaleUpperCase(); 
+
+  await prisma.pool.create({
+            data:{
+                title,
+                code
+            }
+        })
+```
+
+
+- Contagem de usuários.
+- Contagem de palpites.
+# Aula-04.
+
+#### Finalizando o backend
+
+
+
+
+#### separando arquivos de rotas
+
+```bash
+
+```
+```bash
+
+```
+#### Criação de usuário(Acsses Token Google)
+```bash
+
+```
+```bash
+
+```
+```bash
+
+```
+#### GERAÇÃO DE JWT
+```bash
+
+```
+```bash
+
+```
+```bash
+
+```
+#### Validação de JWT
+```bash
+
+```
+```bash
+
+```
+```bash
+
+```
+#### Rota e perfil
+```bash
+
+```
+```bash
+
+```
+```bash
+
+```
+#### Criação de bolão com usuário logado
+```bash
+
+```
+```bash
+
+```
+```bash
+
+```
+
+#### Entrar em um bolão.
+```bash
+
+```
+```bash
+
+```
+```bash
+
+```
+#### Bolões que eu participo
+```bash
+
+```
+```bash
+
+```
+```bash
+
+```
+
+#### Detalhes de um bolão
+```bash
+
+```
+```bash
+
+```
+```bash
+
+```
+#### Listagem de jogos de um bolão
+```bash
+
+```
+```bash
+
+```
+```bash
+
+```
+#### Criação de um palpite
+```bash
+
+```
+```bash
+
+```
+```bash
+
+```

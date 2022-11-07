@@ -1,11 +1,11 @@
 import Fastify from "fastify";
 import {PrismaClient} from '@prisma/client'
 import cors from '@fastify/cors'
-import { z } from 'zod'
-import ShortUniqueId   from 'short-unique-id'
+ import { z } from 'zod'
+ import ShortUniqueId   from 'short-unique-id'
 
 const prisma = new PrismaClient({
-    log:['query']
+    log:['query'],
 })
 
 async function bootstrap(){
@@ -13,11 +13,13 @@ async function bootstrap(){
         logger:true,
     })
 
+
+    // configurar dominío no futuro.
     await fastify.register(cors,{
         origin:true
     })
-    
-    // Rota dos bolões
+
+       // Rota dos bolões
     // https://localhost:3333/pools/count
     fastify.get('/pools/count',async ()=>{
         const count= await prisma.pool.count();
@@ -48,15 +50,15 @@ async function bootstrap(){
         await prisma.pool.create({
             data:{
                 title,
-                code
-            }
+                code            }
         })
 
         return reply.status(201).send({code});
     });
 
 
-    await fastify.listen({port:3333, host:'0.0.0.0'})
+
+    await fastify.listen({port:3333, host: '0.0.0.0' })
 }
 
 bootstrap()

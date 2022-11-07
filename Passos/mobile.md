@@ -305,7 +305,7 @@ após isso só usar a logo po meio da tag como um componente.
 ```bash
 <Logo />
 ```
-- como o import ficou dando erro pq o typscrit se confunde é necessário dentro de SRC, criar uma pasta de nome @types para organizr as tipagens do SVG'S.
+- Como o import ficou dando erro pq o typscrit se confunde é necessário dentro de SRC, criar uma pasta de nome @types para organizr as tipagens do SVG'S.
   
 - Criar um arquivo de nome svg.d.ts
  na bliblioteca ver o método using typescript, colocar o seguinte código no arquivo criado
@@ -550,32 +550,32 @@ Dentro do arquivo app.json:
 - Autenticação-configurar o auth
 - Acessar o site da [google](https://console.cloud.google.com)
   
-1°- Criar um novo projeto, e dar um nome pra ele, usaremos: nlwcopamobile, e clicar em criar.
+- 1°- Criar um novo projeto, e dar um nome pra ele, usaremos: nlwcopamobile, e clicar em criar.
 
-2°- No mesmo site ir no menu: API e serviços-----> credenciais.
+- 2°- No mesmo site ir no menu: API e serviços-----> credenciais.
 
-3°- Criar uma credencial clicando no botão ID do client Oauth.
+- 3°- Criar uma credencial clicando no botão ID do client Oauth.
 
-4°- Definir quais dados do usuário será acssado, usaremos o EXTERNO.
+- 4°- Definir quais dados do usuário será acssado, usaremos o EXTERNO.
 
-5°- Configurar novamente nome do app como  nlwcopamobile, e usar e-mail padrão da conta, salvar.
+- 5°- Configurar novamente nome do app como  nlwcopamobile, e usar e-mail padrão da conta, salvar.
 
-6°- Definir escopo, em Escopos não confidenciais clicar em adicionar escopo.
+- 6°- Definir escopo, em Escopos não confidenciais clicar em adicionar escopo.
 
-7°- Adicionar como escopo e-mail e perfil do usuário, e atualizar.
+- 7°- Adicionar como escopo e-mail e perfil do usuário, e atualizar.
 
-8°- Salvar e continuar----->Salvar e continuar.
+- 8°- Salvar e continuar----->Salvar e continuar.
 
-9°- no painel principal clicar em publicar aplicativo.
+- 9°- no painel principal clicar em publicar aplicativo.
 
-10°- credenciais---->clicar no botão ID do client Oauth.
+- 10°- credenciais---->clicar no botão ID do client Oauth.
 
-11°- Selecionar tipo de aplicativo como sendo aplicativo da web, add o nome do app nlwcopamobile.
+- 11°- Selecionar tipo de aplicativo como sendo aplicativo da web, add o nome do app nlwcopamobile.
 
-12°- Adicionar o [URI](https://docs.expo.dev/guides/authentication/#google) https://auth.expo.io e a de
+- 12°- Adicionar o [URI](https://docs.expo.dev/guides/authentication/#google) https://auth.expo.io e a de
 redireionamento:   https://auth.expo.io/@lucasbr007/nlwcopamobile
 
-13°- Obter o slug  de URI de forma automatica:
+- 13°- Obter o slug  de URI de forma automatica:
 
 - Rodar a aplicação
 Dentro do arquivo AuthContext fazer o import
@@ -595,9 +595,9 @@ npx expo login
 npx expo whoami
 ```
 
-14°- Com a URI criada pegar o ID e a KEY gerados.
+- 14°- Com a URI criada pegar o ID e a KEY gerados.
 
-15°- Implementar
+- 15°- Implementar
 No arquivo AuthContext.tsx, ou em outro contexto que for usado, fazer o import:
 ```bash
 import * as Google from 'expo-auth-session/providers/google';
@@ -638,7 +638,143 @@ npm install --save phosphor-react-native
 ```
 ---
 
-#### Interface dos bolões.
+# Aula-04.
+
+#### Finalizando o backend
+```bash
+
+```
+```bash
+
+```
+```bash
+
+```
+#### separando arquivos de rotas
+```bash
+
+```
+```bash
+
+```
+```bash
+
+```
+#### Criação de usuário(Acsses Token Google)
+```bash
+
+```
+```bash
+
+```
+```bash
+
+```
+#### GERAÇÃO DE JWT
+```bash
+
+```
+```bash
+
+```
+```bash
+
+```
+#### Validação de JWT
+```bash
+
+```
+```bash
+
+```
+```bash
+
+```
+#### Rota e perfil
+```bash
+
+```
+```bash
+
+```
+```bash
+
+```
+#### Criação de bolão com usuário logado
+```bash
+
+```
+```bash
+
+```
+```bash
+
+```
+
+#### Entrar em um bolão.
+```bash
+
+```
+```bash
+
+```
+```bash
+
+```
+#### Bolões que eu participo
+```bash
+
+```
+```bash
+
+```
+```bash
+
+```
+
+#### Detalhes de um bolão
+```bash
+
+```
+```bash
+
+```
+```bash
+
+```
+#### Listagem de jogos de um bolão
+```bash
+
+```
+```bash
+
+```
+```bash
+
+```
+#### Criação de um palpite
+```bash
+
+```
+```bash
+
+```
+```bash
+
+```
+#### Finalização do app mobile
+```bash
+
+```
+```bash
+
+```
+```bash
+
+```
+# Aula-05.
+
+####
 ```bash
 
 ```

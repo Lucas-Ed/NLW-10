@@ -119,6 +119,20 @@ cd web
 ```bash
 npm install
 ```
+- Instalar as blibliotecas da aplicação:
+
+Tailwindcss
+```bash
+npm install -D tailwindcss postcss autoprefixer
+```
+Axios
+```bash
+npm i axios
+```
+Sweetalert2
+```bash
+npm i sweetalert2
+```
 - Iniciar a aplicação web com o comando
 ```bash
 npm run dev
