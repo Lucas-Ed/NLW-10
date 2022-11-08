@@ -56,14 +56,10 @@ Você pode visualizar o layout do projeto através [DESSE LINK](https://www.figm
 ## Deploy do projeto
 
 Confira [aqui em breve.]()
-
-## Como executar
-
-Para executar as aplicações seguir os procedimentos abaixo:
-- SERVER;
-- WEB;
-- MOBILE.
 ---
+É Necessário Node LTS > versão 16, instalado.
+## Como executar ?
+
 ### Procedimento Iniciar backend 
 
 - Acessar primeiro o diretório server com o comando
@@ -149,7 +145,7 @@ npm install
 ```
 - Instalar as blibliotecas necessárias:
   
-Native Base
+Native Base:
 ```bash
 npm install native-base
 
@@ -157,17 +153,34 @@ npx expo install react-native-svg@12.1.1
 
 npx expo install react-native-safe-area-context@3.3.2
 ```
-Fonts do google
+Fonts do google:
 ```bash
 npx expo install expo-font @expo-google-fonts/roboto
 ```
-phosphor-react-native
+phosphor-react-native:
 ```bash
 npm install --save phosphor-react-native
 ```
-xvg-transformer
+xvg-transformer:
 ```bash
 npm i react-native-svg-transformer
+```
+react navigation: 
+```bash
+npm install @react-navigation/native
+
+```
+Instalando dependências em um projeto gerenciado pelo Expo:
+```bash
+npx expo install react-native-screens react-native-safe-area-context
+```
+Tab navigation
+```bash
+npm install @react-navigation/bottom-tabs
+```
+Axios:
+```bash
+npm i axios
 ```
 - Para Rodar a aplicação mobile localmente:
   É necessário um aparelho celular físico e o baixar o aplicativo ExpoGo na playstore, e conectar na conta do aplicativo ExpoGo;

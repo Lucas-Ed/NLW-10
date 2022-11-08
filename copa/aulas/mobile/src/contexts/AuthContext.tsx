@@ -1,66 +1,80 @@
-import React, { createContext, useCallback, useState, useEffect } from 'react';
-import * as Google from 'expo-auth-session/providers/google';
-import * as AuthSession from 'expo-auth-session';
-import * as WebBrowser from 'expo-web-browser';
+import { createContext, ReactNode, useState, useEffect } from 'react'
+import * as Google from 'expo-auth-session/providers/google'
+import * as AuthSession from 'expo-auth-session'
+import * as WebBrowser from 'expo-web-browser'
+import { api } from '../services/api'
 
-import { GOOGLE_CLIENT_ID } from '@env';
+WebBrowser.maybeCompleteAuthSession()
 
-WebBrowser.maybeCompleteAuthSession();
-
-type UserProps = {
-  name: string;
-  avatarUrl: string;
-  email: string;
+interface UserProps {
+  name: string
+  avatarURL: string
 }
 
-export type AuthContextData = {
-  isUserLoading: boolean;
-  user: UserProps,
-  signIn: () => Promise<void>;
+export interface AuthContextDataProps {
+  user: UserProps
+  isUserLoading: boolean
+  signIn: () => Promise<void>
 }
 
-export const AuthContext = createContext<AuthContextData>({} as AuthContextData);
+interface AuthProviderProps {
+  children: ReactNode
+}
 
-export const AuthContextProvider: React.FC<{ children?: React.ReactNode }> = ({ children }) => {
-  const [user, setUser] = useState<UserProps>({} as UserProps);
-  const [isUserLoading, setIsUserLoading] = useState(false);
+export const AuthContext = createContext({} as AuthContextDataProps)
+
+export function AuthContextProvider({ children }: AuthProviderProps) {
+  const [user, setUser] = useState<UserProps>({} as UserProps)
+  const [isUserLoading, setIsUserLoading] = useState(false)
 
   const [request, response, promptAsync] = Google.useAuthRequest({
-    clientId: GOOGLE_CLIENT_ID,
+    clientId:
+      process.env.CLIENT_ID,
     redirectUri: AuthSession.makeRedirectUri({ useProxy: true }),
     scopes: ['profile', 'email']
   })
 
-//   console.log(AuthSession.makeRedirectUri({useProxy: true}));
-
-  const signIn = async () => {
+  async function signIn() {
     try {
-      setIsUserLoading(true);
-
-      await promptAsync();
-    } catch (err) {
-      console.log(err);
-      throw err;
+      setIsUserLoading(true)
+      await promptAsync()
+    } catch (error) {
+      console.log(error)
+      throw error
     } finally {
-      setIsUserLoading(false);
+      setIsUserLoading(false)
     }
   }
 
-  const signInWithGoogle = useCallback(async (accessToken: string) => {
-    console.log(`TOKEN DE AUTHENTICACAO ${accessToken}`)
-  }, []);
+  async function signInWithGoogle(access_token: string) {
+    try {
+      setIsUserLoading(true)
+
+      const tokenResponse = await api.post('/users', { access_token })
+      api.defaults.headers.common['Authorization'] = `Bearer ${tokenResponse.data.token}`;
+   
+      const userInfoResponse = await api.get('/me')
+      setUser(userInfoResponse.data.user)
+
+    } catch (error) {
+      console.log(error)
+      throw error
+    } finally {
+      setIsUserLoading(false)
+    }
+  }
 
   useEffect(() => {
     if (response?.type === 'success' && response.authentication?.accessToken) {
       signInWithGoogle(response.authentication.accessToken)
     }
-  }, [response]);
-  
+  }, [response])
+
   return (
     <AuthContext.Provider
       value={{
-        isUserLoading,
         signIn,
+        isUserLoading,
         user
       }}
     >
@@ -68,4 +82,3 @@ export const AuthContextProvider: React.FC<{ children?: React.ReactNode }> = ({ 
     </AuthContext.Provider>
   )
 }
-

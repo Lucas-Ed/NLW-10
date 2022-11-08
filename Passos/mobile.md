@@ -644,7 +644,138 @@ npm install --save phosphor-react-native
 
 # Aula-04.
 
-#### Finalizando o backend
+#### Navegação
+
+#### Instalando o react [navigation](https://reactnavigation.org/docs/getting-started)
+```bash
+npm install @react-navigation/native
+
+```
+Instalando dependências em um projeto gerenciado pelo Expo
+```bash
+npx expo install react-native-screens react-native-safe-area-context
+```
+Tab navigation
+```bash
+npm install @react-navigation/bottom-tabs
+```
+#### Criando rotas
+
+- Criar dentro de Src criar uma pasta de nome routes, com um arquivo: app.routes.tsx
+
+Fazer o import do bottom-tabs.
+```bash
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
+
+const { Navigator, Screen } = createBottomTabNavigator()
+```
+- Criar componente
+```bash
+export function AppRoutes() {
+  return(
+    <Navigator
+      screenOptions={{
+        headerShown: false,
+        tabBarLabelPosition: 'beside-icon',
+        tabBarActiveTintColor: colors.yellow[500],
+        tabBarInactiveTintColor: colors.gray[300],
+        tabBarStyle: {
+          position: 'absolute',
+          height: sizes[22],
+          borderTopWidth: 0,
+          backgroundColor: colors.gray[800]
+        },
+        tabBarItemStyle: {
+          position: 'relative',
+          top: Platform.OS === 'android' ? -10 : 0
+        }
+      }}
+    >
+  )
+}
+```
+- Importar component de new:
+```bash
+import { New } from '../screens/New'
+
+# Chamar o componente dentro da tag.
+component={New}
+```
+a mesma coisa se aplica  em outros componentes.
+
+Dentro da pasta routes criar o arquivo index.tsx, 
+fazer o import dentro dele:
+```bash
+import { AppRoutes } from './app.routes'
+```
+Passar a tag de navegação:
+```bash
+<AppRoutes />
+```
+está pronto a chamada de navagação.
+no arquivo principal App.tsx fazer o import  e chamar a rota com a tag:
+```bash
+import { Routes } from './src/routes'
+```
+
+```bash
+{fontsLoaded ? <Routes /> : <Loading />}
+```
+
+#### Customizando boton tabs
+
+- Criar icones
+import:
+```bash
+import { PlusCircle, SoccerBall } from 'phosphor-react-native'
+```
+
+Dentro da tag: ```bash <Screen/> ``` chamar o ícone:
+```bash
+options={{
+          tabBarIcon: ({ color }) => <PlusCircle color={color} size={size} />,
+          tabBarLabel: 'Novo bolão'
+        }}
+```
+- Passar propriedade de menu ativado ou não, dentro da tag <Navigator>
+passar as cores desejadas:
+```bash
+ tabBarActiveTintColor: colors.yellow[500],
+        tabBarInactiveTintColor: colors.gray[300],
+```
+transferir a cor pro ícone:
+dentro da tag <Screen/>
+```bash
+tabBarIcon: ({ color }) => <SoccerBall color={color} size={size}
+```
+- Para acessar cores do tema:
+  ```bash
+import { useTheme } from 'native-base'
+```
+dentro da função chamar as cores e tamanhos de acordo com o  theme:
+```bash
+const { colors, sizes } = useTheme()
+```
+nas tags usar para chamar a cores:
+```bash
+backgroundColor: colors.gray[800]
+```
+tamanhos:
+```bash
+ height: sizes[22],
+```
+
+
+
+
+```bash
+
+```
+#### Tipagem das rotas
+```bash
+
+```
+
 ```bash
 
 ```
@@ -654,78 +785,53 @@ npm install --save phosphor-react-native
 ```bash
 
 ```
-#### separando arquivos de rotas
+
 ```bash
 
+```
+#### Integração com o backend
+
+- Instalando o axios:
+```bash
+npm i axios
+```
+Criar dentro de SRC uma pasta de nome services com o arquivo de nome api.ts , fazer o import e defenir a api:
+```bash
+import axios from "axios";
+
+export const api = axios.create({
+  baseURL: 'http://192.168.0.30:3333'
+});
+```
+Na pasta context arquivo AuthContext
+
+fazer o import da api:
+```bash
+import { api } from '../services/api'
+```
+Requisição da api
+```bash
+async function signInWithGoogle(access_token: string) {
+    try {
+      setIsUserLoading(true)
+
+      const tokenResponse = await api.post('/users', { access_token })
+      api.defaults.headers.common['Authorization'] = `Bearer ${tokenResponse.data.token}`;
+   
+      const userInfoResponse = await api.get('/me')
+      setUser(userInfoResponse.data.user)
+
+    } catch (error) {
+      console.log(error)
+      throw error
+    } finally {
+      setIsUserLoading(false)
+    }
+  }
 ```
 ```bash
 
 ```
-```bash
-
-```
-#### Criação de usuário(Acsses Token Google)
-```bash
-
-```
-```bash
-
-```
-```bash
-
-```
-#### GERAÇÃO DE JWT
-```bash
-
-```
-```bash
-
-```
-```bash
-
-```
-#### Validação de JWT
-```bash
-
-```
-```bash
-
-```
-```bash
-
-```
-#### Rota e perfil
-```bash
-
-```
-```bash
-
-```
-```bash
-
-```
-#### Criação de bolão com usuário logado
-```bash
-
-```
-```bash
-
-```
-```bash
-
-```
-
-#### Entrar em um bolão.
-```bash
-
-```
-```bash
-
-```
-```bash
-
-```
-#### Bolões que eu participo
 ```bash
 
 ```

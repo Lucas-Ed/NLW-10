@@ -28,7 +28,7 @@ CREATE TABLE "Game" (
 CREATE TABLE "Guess" (
     "id" TEXT NOT NULL PRIMARY KEY,
     "firstTeamPoints" INTEGER NOT NULL,
-    "secondTeamPoints" INTEGER NOT NULL,
+    "SecondTeamPoints" INTEGER NOT NULL,
     "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "gameId" TEXT NOT NULL,
     "participantId" TEXT NOT NULL,

@@ -263,7 +263,7 @@ npx prisma studio
 ```
 - Criando seed do banco de dados.
 Criando o SEED(Pré popula o banco de dados, com dados fictícios)
-dentro da pasta prisma crie o aruivo de nom seed .ts e criar usuário fictício de acordo com o video....
+dentro da pasta prisma crie o arquivo de nome seed .ts, e criar usuário fictício de acordo com o video....
 exemplo:
 ```bash
 import { PrismaClient} from '@prisma/client'
@@ -359,7 +359,7 @@ ZOD(VALIDAÇÃO)
 ```bash
 npm i zod
 ```
-short-unique-id( cri um código automático para cada bolõ criado!)
+short-unique-id( cria um código automático para cada bolão criado!)
 ```bash
 npm i short-unique-id
 ```
@@ -384,9 +384,10 @@ const code=String(generate()).toLocaleUpperCase();
 #### Finalizando o backend
 
 
-
-
 #### separando arquivos de rotas
+Criar a pasta routes dentro de src, criar separações das rotas por recurso(entidade.)
+
+
 
 ```bash
 
@@ -395,6 +396,8 @@ const code=String(generate()).toLocaleUpperCase();
 
 ```
 #### Criação de usuário(Acsses Token Google)
+
+
 ```bash
 
 ```
@@ -405,8 +408,10 @@ const code=String(generate()).toLocaleUpperCase();
 
 ```
 #### GERAÇÃO DE JWT
-```bash
 
+Instalação blibliotecas:
+```bash
+ npm i @fastify/jwt
 ```
 ```bash
 
