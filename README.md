@@ -57,9 +57,9 @@ Você pode visualizar o layout do projeto através [DESSE LINK](https://www.figm
 
 Confira [aqui em breve.]()
 ---
-É Necessário Node LTS > versão 16, instalado.
-## Como executar ?
 
+## Como executar ?
+É Necessário Node LTS > versão 16, instalado.
 ### Procedimento Iniciar backend 
 
 - Acessar primeiro o diretório server com o comando
@@ -74,7 +74,7 @@ npm install
 
 Fastify
 ```bash
-  npm i fastfy -D
+  npm i fastify -D
 ```
 TSX
 ```bash
@@ -94,7 +94,7 @@ npm i prisma-erd-generator @mermaid-js/mermaid-cli -D
 ```
 Cors do Fastify
 ```bash
-npm i @fastfy/cors
+npm i @fastify/cors
 ```
 ---
 
@@ -103,7 +103,7 @@ npm i @fastfy/cors
 npm run dev
 ```
 
-Com o backend rodando você pode escolher entre a aplicação WEB ou MOBILE
+ #### Com o backend rodando você pode escolher entre a aplicação WEB ou MOBILE
 ---
 ### Procedimento iniciar aplicação WEB 
 
@@ -182,9 +182,25 @@ Axios:
 ```bash
 npm i axios
 ```
+country-list
+```bash
+npm i --save-dev @types/country-list
+```
+country-flag
+```bash
+npm install --save react-native-country-flag
+```
+dayjs
+```bash
+npm install dayjs
+```
+Dotenv
+```bash
+npm dotenv babel-plugin-inline-dotenv
+```
 - Para Rodar a aplicação mobile localmente:
-  É necessário um aparelho celular físico e o baixar o aplicativo ExpoGo na playstore, e conectar na conta do aplicativo ExpoGo;
-  depois conectar o cabo USB no celular e computador, ou notbook [acesse o tutorial rodar ExpoGo via USB, aqui.](http://bit.ly/3SYlJXv)
+É necessário um aparelho celular físico e o baixar o aplicativo ExpoGo na playstore, e conectar na conta do aplicativo ExpoGo;
+depois conectar o cabo USB no celular e computador, ou notbook [acesse o tutorial de como rodar expogo via USB, aqui.](http://bit.ly/3SYlJXv)
 
 Executar o projeto via usb com o app expoGo rodando o seguinte comando no terminal:
 ```bash

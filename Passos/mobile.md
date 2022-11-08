@@ -86,7 +86,7 @@ Continuando dentro do arquivo app.tsx, envolver o retono do html com a tag:
       <Box>Hello world</Box>
     </NativeBaseProvider>
 ```
-tudo que estiver entre as tag do native base provider irá permitir que possamos utilizar os recursos do native base.
+#### tudo que estiver entre as tag do native base provider irá permitir que possamos utilizar os recursos do native base.
 ---
 ### Customizar o tema do native base
 
@@ -730,7 +730,7 @@ import:
 import { PlusCircle, SoccerBall } from 'phosphor-react-native'
 ```
 
-Dentro da tag: ```bash <Screen/> ``` chamar o ícone:
+Dentro da tag: ```bash  <Screen/> ``` chamar o ícone:
 ```bash
 options={{
           tabBarIcon: ({ color }) => <PlusCircle color={color} size={size} />,
@@ -884,12 +884,20 @@ async function signInWithGoogle(access_token: string) {
 ```
 # Aula-05.
 
-####
+Instalar country-flag:
 ```bash
-
+npm install --save react-native-country-flag
 ```
----
+dayjs
 ```bash
-
+npm install dayjs
+```
+Dotenv
+```bash
+npm dotenv babel-plugin-inline-dotenv
+```
+Em babel.configjs adicionar plugin
+```bash
+ plugins: ['inline-dotenv']
 ```
 ---

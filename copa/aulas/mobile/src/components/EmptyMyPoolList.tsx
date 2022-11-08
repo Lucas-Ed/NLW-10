@@ -1,4 +1,5 @@
 import { Row, Text, Pressable } from 'native-base';
+// import{ Share } from 'react-native'
 
 interface Props {
   code: string;
