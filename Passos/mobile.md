@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="../copa/aulas/mobile/src/assets/logo.svg" alt="Next Level Week Copa Logo"/>
+  <img src="../mobile/src/assets/logo.svg" alt="Next Level Week Copa Logo"/>
 </p>
 
 # Passo a Passo 
