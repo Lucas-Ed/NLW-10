@@ -1,3 +1,5 @@
+// Arquivo inicial da aplicação onde chamamos as rotas dos métodos.
+
 import Fastify from "fastify";
 import cors from '@fastify/cors'
 import jwt from '@fastify/jwt'

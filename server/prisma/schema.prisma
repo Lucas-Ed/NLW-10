@@ -1,14 +1,12 @@
 // This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
-
+// O schema é onde cria o versionamento do banco de dados, antes de fazer a migração.
 generator client {
   provider = "prisma-client-js"
 }
-
 generator erd {
-  provider = "prisma-erd-generator"
+   provider = "prisma-erd-generator"
 }
-
 datasource db {
   provider = "sqlite"
   url      = env("DATABASE_URL")

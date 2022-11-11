@@ -1,6 +1,6 @@
 import { FastifyInstance } from "fastify"
 import { z } from "zod"
-import fetch from 'node-fetch'
+// import fetch from 'node-fetch'
 import { prisma } from "../lib/prisma"
 import { authenticate } from "../plugins/authenticate"
 

@@ -59,7 +59,10 @@ export async function poolRoutes(fastify: FastifyInstance){
 
     const { code } = joinPoolBody.parse(request.body)
 
+//
     const pool = await prisma.pool.findUnique({
+
+      
       where:{
         code,
       },

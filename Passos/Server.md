@@ -22,7 +22,7 @@ npx tsc --init
 ```
 em config.json modificar o "target" para es2020
 
-#### Fastfy
+#### Fastify
 - Instalação:
 ```bash
 npm i fastify 
@@ -193,7 +193,7 @@ após gerado o .SVG abrir o arquivo no navegador para a vizualização.
 ```bash
 npm install @fastify/cors
 ```
-a bliblioteca cors é utilizada para definição de quais aplicações esarão aptas a consumir os dados do backend,
+a bliblioteca cors é utilizada para definição de quais aplicações estarão aptas a consumir os dados do backend,
 é uma medida de segurança para a aplicação.
 
 - Configurando o cors, 1° fazer o import e depois incluindo na função do arquivo server.ts:
@@ -203,7 +203,7 @@ import cors from '@fastify/cors'
 
 // usar dentro da função true no ambiente de produção e quando for fazer o deploy
 // incluir o dominio em origin: 'https://meusite.com.br'
-await fastfy = Fastfy({
+await fastify = Fastify({
     origin: true,
 })
 ```
@@ -387,76 +387,195 @@ const code=String(generate()).toLocaleUpperCase();
 #### separando arquivos de rotas
 Criar a pasta routes dentro de src, criar separações das rotas por recurso(entidade.)
 
+- Sistema de Plugins
+os arquivos onde ficará as rotas pecisa exportar uma função, exemplo:
 
 
 ```bash
+export function poolsRoutes(){
+
+    return()
+}
+```
+porém a unção precisa receber o Fastify como parâmetro, ficara assim:
+```bash
+export function poolsRoutes(fastify){
+
+    return()
+}
+```
+
+separar a conexão do prisma em uma pasta de nome lib, com o arquivo de nome prisma .ts:
+```bash
+import {PrismaClient} from '@prisma/client'
+
+export const prisma = new PrismaClient({
+    log:['query'],
+})
+```
+
+no arquivo da rota, exemplo a pools
+temos que tupar a chamada do fastify, e ficará assim:
+```bash
+export async function poolRoutes(fastify: FastifyInstance){
+  fastify.get('/pools/count', async () => {
+    const count = await prisma.pool.count()
+
+    return { count }
+  })
 
 ```
-```bash
 
+para chamar a rota no arquivo server, junto com a importação:
+```bash
+import { poolRoutes } from "./routes/pool"
+
+await fastify.register(poolRoutes)
 ```
 #### Criação de usuário(Acsses Token Google)
+Criar dentro da pasta routes um arquivo de nome auth
 
+Validar entrada de dados dentro do backend por meio do
 
 ```bash
+export async function authRoutes(fastify: FastifyInstance){
+  fastify.post('/uers', async (request) =>{
+    const createUserBody = z.object({
+    
+    })
+   const {access_token:} = createUserBody.parse(request.body)
+})
+```
 
+- Comunicar com a api:
+
+```bash
+ const userResponse = await fetch('https://www.googleapis.com/oauth2/v2/userinfo',{
+      method: 'GET',
+      headers:{
+        Authorization: `Bearer ${access_token}`,
+      }
+    })
+<!-- Devolução das informações -->
+const userData = await userResponse.json()
+```
+Devolução das informações :
+```bash
+      const userInfoSchema = z.object({
+      id: z.string(),
+      email: z.string().email(),
+      name: z.string(),
+      picture: z.string().url(),
+})
 ```
 ```bash
-
+   <!-- Validação -->
+const userInfo = userInfoSchema.parse(userData)
 ```
+
+- incluir no modelo de banco de dados a coluna com o id do google:
+deixar ela como opcional(?) por que se tiver usuários sem esse campo dará conflito
 ```bash
+googleId  String?  @unique
+```
+- Rodar a nova migração pro banco de dados:
+```bash
+npx prisma migrate dev
+```
+Procurar um usuário no banco de dados que exista, se não existir ele criará o usuário com o id d google:
+```bash
+let user = await prisma.user.findUnique({
+      where:{
+        googleId: userInfo.id,
+      }
+    })
+
+    if(!user){
+      user = await prisma.user.create({
+        data:{
+          googleId: userInfo.id,
+          name: userInfo.name,
+          email: userInfo.email,
+          avatarUrl: userInfo.picture,
+        }
+      })
+    }
 
 ```
-#### GERAÇÃO DE JWT
+#### GERAÇÃO DE [JWT](jwt.io)
+
+O Token JWT é criado dentro da aplicação e tem um tempo de validade, esse token é enviado pra toda requisção ao backend no período de validade, pra saber qual usuário está fazendo a requisição
 
 Instalação blibliotecas:
 ```bash
  npm i @fastify/jwt
 ```
+- No arquivo server(ARQUIVO RAÍZ) fazer o import do JWT:
+```bash
+import jwt from '@fastify/jwt'
+```
+- Passar as configurações do JWT:
+```bash
+ await fastify.register(jwt, {
+    secret: 'nlwcopa',
+  })
+```
+
+No final da rota de autenticação(arquivo auth), criar o token pro usuário:
+```bash
+const token = fastify.jwt.sign({
+      name: user.name,
+      avatarUrl: user.avatarUrl,
+    },{
+      sub: user.id,
+      expiresIn: '7 days',
+    })
+
+    return {token}
+  }
+```
+-Testar o a requisição com o Insomnia passando  na rota /users o accsses token 
+```bash
+{
+    "accsses_token": "token aqui"
+}
+```
+- Validar o JWT
+```bash
+ fastify.get('/me', async (request) => {
+    await request.jwtVerify()
+    return{ user: request.user 
+  })
+```
+Testar no insominia!
+
+
+Criar uma nome pasta plugins com o arquivo, authenticate.ts
+
+```bash
+import { FastifyRequest } from "fastify";
+
+export async function authenticate(request: FastifyRequest){
+  await request.jwtVerify()
+}
+```
+Executar a rota do authenticate antes da rota padrão ser chamada:
+```bash
+  // Rota que retorna informações do usuário logado
+  fastify.get('/me', {
+      onRequest:[authenticate],
+    }, async (request) => {
+    return{ user: request.user 
+  })
+```
+Testar no insomnia novamente !
+<!-- #### Entrar em um bolão.
+
 ```bash
 
 ```
-```bash
-
-```
-#### Validação de JWT
-```bash
-
-```
-```bash
-
-```
-```bash
-
-```
-#### Rota e perfil
-```bash
-
-```
-```bash
-
-```
-```bash
-
-```
-#### Criação de bolão com usuário logado
-```bash
-
-```
-```bash
-
-```
-```bash
-
-```
-
-#### Entrar em um bolão.
-```bash
-
-```
-```bash
-
-```
+- Criar uma pasta de nome@types e um arquivo de nome fastify-jwt.d.ts, esse é um arquivo de definição de tipos do typescript.
+  
 ```bash
 
 ```
@@ -500,4 +619,4 @@ Instalação blibliotecas:
 ```
 ```bash
 
-```
+``` -->
