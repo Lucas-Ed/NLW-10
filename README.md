@@ -207,7 +207,7 @@ Executar o projeto via usb com o app expoGo rodando o seguinte comando no termin
 npm run android
 ```
 Depois só aguardar a versão Mobile renderizar no seu celular físico.
-A aplicação "server" se integra com a "web" e a "mobile", realizando o Back-end. Caso queira rodar as aplicações basta utilizar os seguintes comandos:
+A aplicação "server" se integra com a "web" e a "mobile", realizando o Back-end.
 
 
 ## :memo: Licença
